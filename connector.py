@@ -50,16 +50,28 @@ def writer(file, list, cond):
         if cond == False:
             pass
         else:
-            writer.writerow(["date","id","value"])
+            header = ["date"]
+            secondHalf = []
+            for i in range(len(list)):
+                if i<2:
+                    secondHalf.append(f"temp{i+1}")
+                elif i<4:
+                    secondHalf.append(f"hum{i-1}")
+                elif i<12:
+                    secondHalf.append(f"tempSim{i-3}")
+                elif i<20:
+                    secondHalf.append(f"humSim{i-11}")
+            header.extend(secondHalf) 
+            print(header)   
+            writer.writerow(header)
+
+        elements = []
+        date = [f"{datetime.datetime.now()}"]
+        print(date)
         for i in range(len(list)):
-            if i<2:
-                writer.writerow([datetime.datetime.now(),f"temp{i+1}",list[i]])
-            elif i<4:
-                writer.writerow([datetime.datetime.now(),f"hum{i-1}",list[i]])
-            elif i<12:
-                writer.writerow([datetime.datetime.now(),f"tempSim{i-3}",list[i]])
-            elif i<20:
-                writer.writerow([datetime.datetime.now(),f"humSim{i-11}",list[i]])
+            elements.append(list[i])
+        date.extend(elements)
+        writer.writerow(date)
 
 while True:
     try:
