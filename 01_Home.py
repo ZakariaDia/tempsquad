@@ -31,7 +31,6 @@ with col1:
     st.metric("Risque d'incendie","XX%","-X %")
     st.metric("Température X", "22.0 °C", "1.2 °C")
     st.metric("Humidité 1", "54%", "1.2 %")
-<<<<<<< HEAD
 
 with col2:
     graphs = st.container
@@ -56,5 +55,3 @@ with col3:
 
 
         
-=======
->>>>>>> 0effad5c8cbeb65ed91c6c9fa987200bb0dcda5f
