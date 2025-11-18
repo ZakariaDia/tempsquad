@@ -1,0 +1,57 @@
+
+/*contains the title*/
+div.st-emotion-cache-1vo6xi6{
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* contains the main column and ghost column */
+div.st-emotion-cache-18kf3ut{
+  text-align: center;
+  justify-content: center;
+}
+
+
+
+/*label that contains the text for a metric. 
+targeting any metric applies the css to all of them (for some reason).
+the label must be set to flex to center it (for some reason).*/
+[data-testid="stMetricLabel"]{
+  display: flex;
+}
+
+/* login page*/
+
+/*title centering*/
+
+div.st-emotion-cache-4rsbii{
+  text-align: center;
+
+}
+
+
+/* centers the container with all elements*/
+div.st-emotion-cache-1n6tfoc{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* Hide hamburger menu and footer */
+div.css-r698ls.e8zbici2 {
+  display: none;
+}
+
+footer.css-ipbk5a.egzxvld4 {
+  display: none;
+}
+
+footer.css-12gp8ed.eknhn3m4 {
+  display: none;
+}
+
+div.vg-tooltip-element {
+  display: none;
+}
