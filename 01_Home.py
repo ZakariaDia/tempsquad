@@ -28,14 +28,3 @@ with contMain:
     st.metric("Risque d'incendie","XX%","-X %")
     st.metric("Température X", "22.0 °C", "1.2 °C")
     st.metric("Humidité 1", "54%", "1.2 %")
-
-
-
-
-
-
-#pg = st.navigation([Accueil,"Données brutes.py","page3.py","page4.py"],expanded=False)
-#pg.run()
-
-
-        
