@@ -1,8 +1,8 @@
 [theme]
-primaryColor="#F63366"
-backgroundColor="#CACFD2"
-secondaryBackgroundColor="#F0F2F6"
-textColor="#262730"
+primaryColor="#DF3A40"
+backgroundColor="#172A52"
+secondaryBackgroundColor="#236299ff"
+textColor="#FFFFFF"
 font="sans serif"
 [client]
 showSidebarNavigation = false

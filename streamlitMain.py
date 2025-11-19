@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.logo("david.png",icon_image="david-logo.png",size="large")
+st.logo("david.png",icon_image="david.png",size="large")
 
 login = st.Page("login.py")
 home = st.Page("01_Home.py",title="Accueil")

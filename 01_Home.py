@@ -5,7 +5,6 @@ import plost
 from PIL import Image
 
 
-st.logo("david.png",icon_image="david-logo.png",size="large")
 
 
 # Page setting
@@ -39,7 +38,7 @@ def createHum():
     data = pd.read_csv('measurements.csv', parse_dates=['date']),
     x='date',
     y='hum1',
-    color = "#1088e9",)
+    color = "#1088e9")
 
 
 with col1:

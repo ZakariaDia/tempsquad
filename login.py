@@ -1,7 +1,6 @@
 import streamlit as st
 
 
-st.logo("david.png",icon_image="david-logo.png",size="large")
 
 hide_sidebar = """
 <style>
