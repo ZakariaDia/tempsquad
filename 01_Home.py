@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plost
+import plotly.express as pl
 from PIL import Image
 
 
@@ -26,19 +27,18 @@ col1,col2,col3 = st.columns(3,border=True)
 
 @st.fragment(run_every="3s")
 def createTemp():
-    plost.line_chart(
-    data = pd.read_csv('measurements.csv', parse_dates=['date']),
-    color = "#f73939",
-    x='date',
-    y='temp1')
+    data = pd.read_csv('measurements.csv', parse_dates=['date'])
+    chart = pl.line(data, x="date", y="temp1",height=350)
+    chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
+    chart.update_traces(line_color="#DF3A40")
+    st.plotly_chart(chart,key="tempChart")
 
 @st.fragment(run_every="3s")
 def createHum():
-    plost.line_chart(
-    data = pd.read_csv('measurements.csv', parse_dates=['date']),
-    x='date',
-    y='hum1',
-    color = "#1088e9")
+    data = pd.read_csv('measurements.csv', parse_dates=['date'])
+    chart = pl.line(data, x="date", y="hum1",height=350)
+    chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
+    st.plotly_chart(chart,key="humChart")
 
 
 with col1:

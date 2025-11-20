@@ -37,6 +37,12 @@ div.st-emotion-cache-1n6tfoc{
   align-items: center;
 }
 
+/* change background colour of containers/columns on home page*/
+[data-testid="stColumn"]{
+  background-color: #21499f;
+}
+
+
 
 
 /* Hide hamburger menu and footer */
