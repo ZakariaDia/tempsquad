@@ -25,10 +25,10 @@ def createMetric(num,type,index):
     lastRow = data.tail(1)
     if type == "temp":
         var = lastRow.iloc[0,index]
-        st.metric(f"Température {num}", var, "1.2 °C")
+        st.metric(f"Température {num}", f"{var} °C", "1.2 °C")
     else:
         var = lastRow.iloc[0,index]
-        st.metric(f"Humidité {num}", var, "1.2 °C")
+        st.metric(f"Humidité {num}", f"{var} %", "1.2 °C")
 
 
 st.set_page_config(layout="wide")
@@ -38,16 +38,18 @@ with open('style.css') as f:
 
 st.title("Données brutes")
 
-col1,col2,col3 = st.columns([2,2,5],border=True,gap="small")
+col1,col2,col3 = st.columns([3,3,5],border=True,gap="small")
 
 with col1:
-    st.subheader("Températures")
+    st.header("Températures",anchor=False)
+    st.subheader("Capteurs réels", anchor=False)
     colTempR1, colTempR2 = st.columns(2)
     with colTempR1:
         createMetric(1,"temp",1)
     with colTempR2:
         createMetric(2,"temp",2)
-    col1.space("medium")
+    col1.space("small")
+    st.subheader("Capteurs simulés", anchor=False)
     colT1, colT2 = st.columns(2)
     with colT1:
         createMetric(1,"temp",5)
@@ -61,13 +63,15 @@ with col1:
         createMetric(8,"temp",12)
 
 with col2:
-    st.subheader("Humidités")
+    st.header("Humidités",anchor=False)
+    st.subheader("Capteurs réels", anchor=False)
     colHumR1, colHumR2 = st.columns(2)
     with colHumR1:
         createMetric(1,"hum",3)
     with colHumR2:
         createMetric(2,"hum",4)
-    col2.space("medium")
+    col2.space("small")
+    st.subheader("Capteurs simulés", anchor=False)
     colH1, colH2 = st.columns(2)
     with colH1:
         createMetric(1,"hum",13)
