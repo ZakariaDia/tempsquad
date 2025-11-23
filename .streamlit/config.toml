@@ -1,9 +1,11 @@
 [theme]
 primaryColor="#DF3A40"
 backgroundColor="#172A52"
-secondaryBackgroundColor="#236299ff"
+secondaryBackgroundColor="#172A52"
 textColor="#FFFFFF"
 font="sans serif"
+[theme.sidebar]
+backgroundColor = "#236299"
 [client]
 showSidebarNavigation = false
 logo = "david-icon.png"

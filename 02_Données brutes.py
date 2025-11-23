@@ -1,10 +1,35 @@
 import streamlit as st
-import plost
+import plotly_express as pl
 import pandas as pd
 
 # Data
-seattle_weather = pd.read_csv('https://raw.githubusercontent.com/tvst/plost/master/data/seattle-weather.csv', parse_dates=['date'])
-stocks = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/stocks_toy.csv')
+
+@st.fragment(run_every="10s")
+def createTemp():
+    data = pd.read_csv('measurements.csv', parse_dates=['date'])
+    chart = pl.line(data, x="date", y="temp1",height=350)
+    chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
+    chart.update_traces(line_color="#DF3A40")
+    st.plotly_chart(chart,key="tempChart")
+
+@st.fragment(run_every="10s")
+def createHum():
+    data = pd.read_csv('measurements.csv', parse_dates=['date'])
+    chart = pl.line(data, x="date", y="hum1",height=350)
+    chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
+    st.plotly_chart(chart,key="humChart")
+
+@st.fragment(run_every="10s")
+def createMetric(num,type,index):
+    data = pd.read_csv('measurements.csv', parse_dates=['date'])
+    lastRow = data.tail(1)
+    if type == "temp":
+        var = lastRow.iloc[0,index]
+        st.metric(f"Température {num}", var, "1.2 °C")
+    else:
+        var = lastRow.iloc[0,index]
+        st.metric(f"Humidité {num}", var, "1.2 °C")
+
 
 st.set_page_config(layout="wide")
 
@@ -13,64 +38,62 @@ with open('style.css') as f:
 
 st.title("Données brutes")
 
-st.header("Capteurs réels")
+col1,col2,col3 = st.columns([2,2,5],border=True,gap="small")
 
-contTemp = st.container(horizontal=True)
+with col1:
+    st.subheader("Températures")
+    colTempR1, colTempR2 = st.columns(2)
+    with colTempR1:
+        createMetric(1,"temp",1)
+    with colTempR2:
+        createMetric(2,"temp",2)
+    col1.space("medium")
+    colT1, colT2 = st.columns(2)
+    with colT1:
+        createMetric(1,"temp",5)
+        createMetric(3,"temp",7)
+        createMetric(5,"temp",9)
+        createMetric(7,"temp",11)
+    with colT2:
+        createMetric(2,"temp",6)
+        createMetric(4,"temp",8)
+        createMetric(6,"temp",10)
+        createMetric(8,"temp",12)
 
-with contTemp:  
-    st.metric("Température 1", "22.0 °C", "1.2 °C")
-    st.metric("Température 2", "22.0 °C", "1.2 °C")
+with col2:
+    st.subheader("Humidités")
+    colHumR1, colHumR2 = st.columns(2)
+    with colHumR1:
+        createMetric(1,"hum",3)
+    with colHumR2:
+        createMetric(2,"hum",4)
+    col2.space("medium")
+    colH1, colH2 = st.columns(2)
+    with colH1:
+        createMetric(1,"hum",13)
+        createMetric(3,"hum",15)
+        createMetric(5,"hum",17)
+        createMetric(7,"hum",19)
+    with colH2:
+        createMetric(2,"hum",14)
+        createMetric(4,"hum",16)
+        createMetric(6,"hum",18)
+        createMetric(8,"hum",20)
 
-contHum = st.container(horizontal=True)
+with col3:
+    st.markdown("### Histogramme de température")
+    createTemp()
+    st.markdown("### Histogramme d'humidité")
+    createHum()
+    
 
-with contHum:
-    st.metric("Humidité 1", "54%", "1.2 %")
-    st.metric("Humidité 2", "54%", "1.2 %")
 
-st.divider()
 
-st.header("Capteurs simulés")
 
-contSimTemp = st.container(horizontal=True)
 
-with contSimTemp:
-    st.metric("Température 1", "22.0 °C", "1.2 °C")
-    st.metric("Température 2", "22.0 °C", "1.2 °C")
-    st.metric("Température 3", "22.0 °C", "1.2 °C")
-    st.metric("Température 4", "22.0 °C", "1.2 °C")
-    st.metric("Température 5", "22.0 °C", "1.2 °C")
-    st.metric("Température 6", "22.0 °C", "1.2 °C")
-    st.metric("Température 7", "22.0 °C", "1.2 °C")
-    st.metric("Température 8", "22.0 °C", "1.2 °C")
 
-contSimHum = st.container(horizontal=True)
+    
 
-with contSimHum:
-    st.metric("Humidité 1", "22.0 °C", "1.2 °C")
-    st.metric("Humidité 2", "22.0 °C", "1.2 °C")
-    st.metric("Humidité 3", "22.0 °C", "1.2 °C")
-    st.metric("Humidité 4", "22.0 °C", "1.2 °C")
-    st.metric("Humidité 5", "22.0 °C", "1.2 °C")
-    st.metric("Humidité 6", "22.0 °C", "1.2 °C")
-    st.metric("Humidité 7", "22.0 °C", "1.2 °C")
-    st.metric("Humidité 8", "22.0 °C", "1.2 °C")
 
-st.divider()
 
-st.header("Graphiques")
 
-a1, a2 = st.columns(2)
-with a1:
-    st.markdown('### Histogramme de température')
-    plost.line_chart(
-    data=seattle_weather,
-    color = "#f73939",
-    x='date',
-    y='temp_max')
-with a2:
-    st.markdown('### Histogramme humidité')
-    plost.line_chart(
-    data=seattle_weather,
-    x='date',
-    y='temp_max',
-    color = "#1088e9",)

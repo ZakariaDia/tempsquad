@@ -12,10 +12,7 @@ with open('style.css') as f:
 
 st.title("Bienvenue, <nom> !")
 
-
-st.divider()
 st.subheader("Mesures principales")
-
 
 col1,col2,col3 = st.columns(3,border=True)
 
