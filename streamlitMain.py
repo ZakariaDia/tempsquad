@@ -9,16 +9,19 @@ login = st.Page("login.py")
 home = st.Page("01_Home.py",title="Accueil")
 measurements = st.Page("02_Données brutes.py",title="Données brutes")
 notifications = st.Page("03_Seuils.py",title="Paramètres")
+david = st.Page("david.py",title="")
 
 pages = [login,
          home,
          measurements,
-         notifications,]
+         notifications,
+         david]
 
 # sidebar hiding login page
 st.sidebar.page_link(home,label="Accueil")
 st.sidebar.page_link(measurements,label="Données brutes")
 st.sidebar.page_link(notifications,label="Paramètres")
+st.sidebar.page_link(david,label="⠀")
 
 
 pg = st.navigation(pages)
