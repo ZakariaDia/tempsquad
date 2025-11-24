@@ -41,7 +41,7 @@ st.title("Données brutes")
 col1,col2,col3 = st.columns([3,3,5],border=True,gap="small")
 
 with col1:
-    st.header("Températures",anchor=False)
+    st.header("Température",anchor=False)
     st.subheader("Capteurs réels", anchor=False)
     colTempR1, colTempR2 = st.columns(2)
     with colTempR1:
@@ -63,7 +63,7 @@ with col1:
         createMetric(8,"temp",12)
 
 with col2:
-    st.header("Humidités",anchor=False)
+    st.header("Humidité",anchor=False)
     st.subheader("Capteurs réels", anchor=False)
     colHumR1, colHumR2 = st.columns(2)
     with colHumR1:
