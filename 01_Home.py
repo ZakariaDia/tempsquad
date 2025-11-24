@@ -22,7 +22,7 @@ def createTemp():
     chart = pl.line(data, x="date", y="temp1",height=350)
     chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
     chart.update_traces(line_color="#DF3A40")
-    st.plotly_chart(chart,use_container_width=True,key="tempChart")
+    st.plotly_chart(chart,width="stretch",key="tempChart")
 
 @st.fragment(run_every="3s")
 def createHum():
