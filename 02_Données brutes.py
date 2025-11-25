@@ -4,52 +4,20 @@ import pandas as pd
 
 # Data
 
-def plotly_preserve_zoom(fig, key):
-    """
-    Preserve zoom/pan for a Plotly chart rendered with st.plotly_chart().
-    """
-
-    # Restore zoom if saved earlier
-    if key in st.session_state:
-        zoom = st.session_state[key]
-        fig.update_xaxes(range=zoom.get("x"))
-        fig.update_yaxes(range=zoom.get("y"))
-
-    # Display chart with event capture
-    event = st.plotly_chart(
-        fig,
-        key=key,
-        on_event="relayout",
-        use_container_width=True
-    )
-
-    # The event is a dict of axis ranges if the user zoomed
-    if isinstance(event, dict):
-        x0 = event.get("xaxis.range[0]")
-        x1 = event.get("xaxis.range[1]")
-        y0 = event.get("yaxis.range[0]")
-        y1 = event.get("yaxis.range[1]")
-
-        # update session storage only if zoom is valid
-        if x0 is not None and x1 is not None:
-            st.session_state.setdefault(key, {})["x"] = [x0, x1]
-        if y0 is not None and y1 is not None:
-            st.session_state.setdefault(key, {})["y"] = [y0, y1]
-
 @st.fragment(run_every="10s")
 def createTemp():
     data = pd.read_csv('measurements.csv', parse_dates=['date'])
     chart = pl.line(data, x="date", y="temp1",height=350)
     chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
     chart.update_traces(line_color="#DF3A40")
-    plotly_preserve_zoom(chart, "tempChart")
+    st.plotly_chart(chart,key="tempChart")
 
 @st.fragment(run_every="10s")
 def createHum():
     data = pd.read_csv('measurements.csv', parse_dates=['date'])
     chart = pl.line(data, x="date", y="hum1",height=350)
     chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
-    plotly_preserve_zoom(chart, "humChart")
+    st.plotly_chart(chart,key="humChart")
 
 @st.fragment(run_every="10s")
 def createMetric(num,type,index):
