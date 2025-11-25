@@ -22,13 +22,16 @@ def createHum():
 @st.fragment(run_every="10s")
 def createMetric(num,type,index):
     data = pd.read_csv('measurements.csv', parse_dates=['date'])
-    lastRow = data.tail(1)
     if type == "temp":
-        var = lastRow.iloc[0,index]
-        st.metric(f"Température {num}", f"{var} °C", "1.2 °C")
+        var = data.iloc[-1,index]
+        varDelta = round((float(var) - float(data.iloc[-2,index])),2)
+        st.metric(f"Température {num}", f"{var} °C", varDelta)
     else:
-        var = lastRow.iloc[0,index]
-        st.metric(f"Humidité {num}", f"{var} %", "1.2 °C")
+        var = data.iloc[-1,index]
+        varDelta = round((float(var) - float(data.iloc[-2,index])),2)
+        st.metric(f"Humidité {num}", f"{var} %", varDelta)
+
+
 
 
 st.set_page_config(layout="wide")

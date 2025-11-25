@@ -34,12 +34,13 @@ def createHum():
 @st.fragment(run_every="3s")
 def createMetric():
     data = pd.read_csv('measurements.csv', parse_dates=['date'])
-    lastRow = data.tail(1)
-    temp = lastRow.iloc[0,21]
-    hum = lastRow.iloc[0,22]
+    temp = data.iloc[-1,21]
+    hum = data.iloc[-1,22]
+    tempDelta = round((float(temp) - float(data.iloc[-2,21])),2)
+    humDelta = round((float(hum) - float(data.iloc[-2,22])),2)
     st.metric("Risque d'incendie","XX%","-X %")
-    st.metric("Température", temp, "1.2 °C")
-    st.metric("Humidité", hum, "1.2 %")
+    st.metric("Température", temp, tempDelta)
+    st.metric("Humidité", hum, humDelta)
 
 with col1:
     createMetric()
