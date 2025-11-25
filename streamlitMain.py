@@ -26,8 +26,8 @@ st.markdown(hideLogo,unsafe_allow_html=True)
 
 login = st.Page("login.py")
 signup = st.Page("signup.py")
-home = st.Page("01_Home.py",title="Accueil")
-measurements = st.Page("02_Données brutes.py",title="Données brutes")
+home = st.Page("01_Home.py",title="Tableau de bord")
+measurements = st.Page("02_Données brutes.py",title="Données complètes")
 notifications = st.Page("03_Seuils.py",title="Paramètres")
 david = st.Page("david.py",title="")
 
@@ -39,8 +39,8 @@ pages = [login,
          signup]
 
 # sidebar hiding login page
-st.sidebar.page_link(home,label="Accueil")
-st.sidebar.page_link(measurements,label="Données brutes")
+st.sidebar.page_link(home,label="Tableau de bord")
+st.sidebar.page_link(measurements,label="Données complètes")
 st.sidebar.page_link(notifications,label="Paramètres")
 st.sidebar.page_link(david,label="⠀")
 

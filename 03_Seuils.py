@@ -67,9 +67,9 @@ with colT:
     st.subheader("Température")
     contT = st.container(horizontal="true")
     with contT:
-        varTemp = st.selectbox("Choisir une donnée :", tempIndexes,index=tempIndexes.get_loc(options["tempVar"]) , key=1)
+        varTemp = st.selectbox("Choisir un capteur :", tempIndexes,index=tempIndexes.get_loc(options["tempVar"]) , key=1)
         choiceTemp = st.selectbox("Choisir une condition :",(">", "<", "=") , key=2)
-    thresholdTemp = st.slider("Seuil à dépasser :",0,55,options["thresholdTemp"])
+    thresholdTemp = st.slider("Température à dépasser :",0,55,options["thresholdTemp"])
     msgTemp = st.text_area(label="Message à envoyer : ", value=options["msgTemp"], key=5)
     
 
@@ -77,9 +77,9 @@ with colH:
     st.subheader("Humidité")
     contH = st.container(horizontal="true")
     with contH:
-        varHum = st.selectbox("Choisir une donnée :", humIndexes,index=humIndexes.get_loc(options["humVar"]), key=3)
+        varHum = st.selectbox("Choisir un capteur :", humIndexes,index=humIndexes.get_loc(options["humVar"]), key=3)
         choiceHum = st.selectbox("Choisir une condition :",(">", "<", "=", "=/="),key=4)
-    thresholdHum = st.slider("Seuil à dépasser :",0,100,options["thresholdHum"])
+    thresholdHum = st.slider("Pourcentage d'humidité à dépasser :",0,100,options["thresholdHum"])
     msgHum = st.text_area("Message à envoyer : ",value=options["msgHum"],key=6)
     
 contEmail = st.container(border=True,key="container-email")
@@ -109,7 +109,3 @@ with contUser:
     with col2:
         col2.space(27)
         st.toggle("Afficher")
-
-
-
-

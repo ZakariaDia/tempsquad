@@ -12,14 +12,17 @@ with open('style.css') as f:
 
 st.title("Bienvenue, <nom> !")
 
-st.subheader("Mesures principales")
+st.subheader("Données principales")
 
 col1,col2,col3 = st.columns(3,border=True)
 
 @st.fragment(run_every="3s")
 def createTemp():
     data = pd.read_csv('measurements.csv', parse_dates=['date'])
-    chart = pl.line(data, x="date", y="temp1",height=350)
+    chart = pl.line(data, x="date", y="tempMoy",height=350, labels={
+                     "date": "Temps (En HH:MM)",
+                     "tempMoy": "Température (°C)",
+                 })
     chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
     chart.update_traces(line_color="#DF3A40")
     st.plotly_chart(chart,width="stretch",key="tempChart")
@@ -27,30 +30,40 @@ def createTemp():
 @st.fragment(run_every="3s")
 def createHum():
     data = pd.read_csv('measurements.csv', parse_dates=['date'])
-    chart = pl.line(data, x="date", y="hum1",height=350)
+    chart = pl.line(data, x="date", y="humMoy",height=350, labels={
+                     "date": "Temps (En HH:MM)",
+                     "humMoy": "Humidité (%)",
+                 })
     chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
     st.plotly_chart(chart,key="humChart")
 
 @st.fragment(run_every="3s")
 def createMetric():
     data = pd.read_csv('measurements.csv', parse_dates=['date'])
-    temp = data.iloc[-1,21]
-    hum = data.iloc[-1,22]
-    tempDelta = round((float(temp) - float(data.iloc[-2,21])),2)
-    humDelta = round((float(hum) - float(data.iloc[-2,22])),2)
-    st.metric("Risque d'incendie","XX%","-X %")
-    st.metric("Température", temp, tempDelta)
-    st.metric("Humidité", hum, humDelta)
+    temp = float(data.iloc[-1,21])
+    hum = float(data.iloc[-1,22])
+    tempDelta = round((temp - float(data.iloc[-2,21])),2)
+    humDelta = round((hum - float(data.iloc[-2,22])),2)
+
+    #Calcul du risque d'incendie
+    InfTemp = 0.7 #influence de la température sur le % de risque d'incendie
+    InfHum = 0.3 #influence d'humidité sur le % de risque d'incendie
+
+    RiskIncendie = round((InfTemp*temp + InfHum*hum),2)
+
+    st.metric("Risque d'incendie",f"{RiskIncendie} %","-X %")
+    st.metric("Température",f"{temp} °C", f"{tempDelta} °C")
+    st.metric("Pourcentage d'Humidité",f"{hum} %", f"{humDelta} %")
 
 with col1:
     createMetric()
     
 with col2:
-    st.markdown('### Histogramme de température')
+    st.markdown("### Diagramme de température")
     createTemp()
     
 with col3:
-    st.markdown('### Histogramme humidité')
+    st.markdown("### Diagramme  d'humidité")
     createHum()
 
 

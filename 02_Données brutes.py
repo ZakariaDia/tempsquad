@@ -7,7 +7,10 @@ import pandas as pd
 @st.fragment(run_every="10s")
 def createTemp():
     data = pd.read_csv('measurements.csv', parse_dates=['date'])
-    chart = pl.line(data, x="date", y="temp1",height=350)
+    chart = pl.line(data, x="date", y="tempMoy", height=350, labels={
+                     "date": "Temps (En HH:MM)",
+                     "tempMoy": "Température (°C)",
+                 })
     chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
     chart.update_traces(line_color="#DF3A40")
     st.plotly_chart(chart,key="tempChart")
@@ -15,7 +18,10 @@ def createTemp():
 @st.fragment(run_every="10s")
 def createHum():
     data = pd.read_csv('measurements.csv', parse_dates=['date'])
-    chart = pl.line(data, x="date", y="hum1",height=350)
+    chart = pl.line(data, x="date", y="humMoy",height=350, labels={
+                     "date": "Temps (En HH:MM)",
+                     "humMoy": "Humidité (%)",
+                 })
     chart.update_layout(paper_bgcolor="#21499f",plot_bgcolor="#21499f")
     st.plotly_chart(chart,key="humChart")
 
@@ -25,11 +31,11 @@ def createMetric(num,type,index):
     if type == "temp":
         var = data.iloc[-1,index]
         varDelta = round((float(var) - float(data.iloc[-2,index])),2)
-        st.metric(f"Température {num}", f"{var} °C", varDelta)
+        st.metric(f"Température {num}", f"{var} °C", f"{varDelta} °C")
     else:
         var = data.iloc[-1,index]
         varDelta = round((float(var) - float(data.iloc[-2,index])),2)
-        st.metric(f"Humidité {num}", f"{var} %", varDelta)
+        st.metric(f"Humidité {num}", f"{var} %", f"{varDelta} %")
 
 
 
@@ -39,7 +45,7 @@ st.set_page_config(layout="wide")
 with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-st.title("Données brutes")
+st.title("Données complètes")
 
 col1,col2,col3 = st.columns([3,3,5],border=True,gap="small")
 
