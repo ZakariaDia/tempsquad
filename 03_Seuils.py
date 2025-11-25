@@ -108,14 +108,8 @@ with contUser:
             del st.session_state["password"]
             st.switch_page("login.py")
         
-<<<<<<< Updated upstream
-    with col2:
-        col2.space(27)
-        st.toggle("Afficher")
-=======
 
 
 
 
 
->>>>>>> Stashed changes
