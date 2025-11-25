@@ -97,15 +97,25 @@ st.title("Paramètres de compte")
 
 contUser = st.container(border=True,key="container-user",width=400)
 with contUser:
-    col1,col2= st.columns([5,2])
-    with col1:
-        st.write("Nom d'utilisateur : zdia054")
-        st.write("Mot de passe : censored ")
-        contSpace = st.container(horizontal=True)
-        with contSpace:
-            contSpace.space()
-            st.button("Déconnecter")
+    st.text_input(label="Nom d'utilisateur",value=f"{''.join(st.session_state['username'])}",disabled=True)
+    st.text_input(label="Mot de passe",value=f"{''.join((st.session_state['password']))}",disabled=True,type="password")
+    contSpace = st.container(horizontal=True)
+    with contSpace:
+        contSpace.space("large")
+        contSpace.space("medium")
+        if st.button("Déconnecter"):
+            del st.session_state["username"]
+            del st.session_state["password"]
+            st.switch_page("login.py")
         
+<<<<<<< Updated upstream
     with col2:
         col2.space(27)
         st.toggle("Afficher")
+=======
+
+
+
+
+
+>>>>>>> Stashed changes
