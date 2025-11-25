@@ -48,6 +48,16 @@ st.set_page_config(layout="wide")
 with open('style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+labelSize = """
+<style>
+    [data-testid="stMarkdownContainer"]{
+        font-size: 1rem;
+        }
+<style>
+"""
+
+st.markdown(labelSize,unsafe_allow_html=True)
+
 st.title("Données complètes")
 
 col1,col2,col3 = st.columns([3,3,5],border=True,gap="small")

@@ -55,10 +55,6 @@ with contLogin:
         with open("users.csv","r") as file:
             reader = csv.reader(file)
             for row in reader:
-                print(row)
-                print(username)
-                print(passw)
-                print(username+passw)
                 if tuple(row) == tuple(username+passw):
                     if "username" not in st.session_state:
                         st.session_state["username"] = username

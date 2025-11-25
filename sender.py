@@ -22,8 +22,8 @@ while True:
             if now - last_sent > options["cooldown"]:
                 print("Seuil température dépassé, envoi de notification en cours...\n")
                 check = 1
-                subject += options["tempVar"]
-                contents += f"Message sur la température:\n{options['msgTemp']}\n"
+                subject += options["tempVar"] + " "
+                contents += f"<b>Seuil de {options['thresholdTemp']}°C a été dépassé! Température actuelle : {data.loc[data.index[-1],options['tempVar']]}°C</b>" + f"\nMessage sur la température:\n{options['msgTemp']}\n\n"
         
 
         if data.loc[data.index[-1],options["humVar"]] >= options["thresholdHum"]:
@@ -31,11 +31,11 @@ while True:
             if now - last_sent > options["cooldown"]:
                 print("Seuil humidité dépassé, envoi de notification en cours...\n")
                 check = 1
-                subject += options["humVar"]
-                contents += f"Message sur l'humidité :\n{options['msgHum']}\n"
+                subject += options["humVar"] + " "
+                contents += f"<b>Seuil de {options['thresholdHum']}% a été dépassé! Humidité actuelle : {data.loc[data.index[-1],options['humVar']]}%</b>" + f"\nMessage sur l'humidité :\n{options['msgHum']}\n\n"
         
         if check == 1:
-            yag = yagmail.SMTP('zakariabilaldia','dyka ftxt uffa ijrz')
+            yag = yagmail.SMTP('temp.squad101','euby kcfa ravt obyu')
             yag.send(options["email"],f"Seuil dépassé : {subject}", contents)
             print("Courriel envoyé!\n")
             contents = ""
