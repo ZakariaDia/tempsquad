@@ -4,6 +4,9 @@ import pandas as pd
 
 # Data
 
+if "username" not in st.session_state or "password" not in st.session_state:
+    st.switch_page("login.py")
+
 @st.fragment(run_every="10s")
 def createTemp():
     data = pd.read_csv('measurements.csv', parse_dates=['date'])

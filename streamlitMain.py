@@ -49,6 +49,7 @@ st.sidebar.page_link(david,label="⠀")
 pg = st.navigation(pages)
 pg.run()
 
+
 def script_is_running(scriptName):
     for p in psutil.process_iter(["cmdline"]):
         try:

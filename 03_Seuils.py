@@ -3,6 +3,9 @@ import pandas as pd
 import yaml
 
 
+if "username" not in st.session_state or "password" not in st.session_state:
+    st.switch_page("login.py")
+
 st.set_page_config(layout="wide")
 
 divColour = """

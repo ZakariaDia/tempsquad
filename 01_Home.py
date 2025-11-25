@@ -10,6 +10,9 @@ st.set_page_config(layout="wide")
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+if "username" not in st.session_state or "password" not in st.session_state:
+    st.switch_page("login.py")
+
 st.title(f"Bienvenue, {''.join(st.session_state['username'])}!")
 
 st.subheader("Données principales")
@@ -50,10 +53,18 @@ def createMetric():
     InfHum = 0.3 #influence d'humidité sur le % de risque d'incendie
 
     RiskIncendie = round((InfTemp*temp + InfHum*hum),2)
+    if "riskLast" not in st.session_state:
+        st.session_state["riskLast"] = 0
 
-    st.metric("Risque d'incendie",f"{RiskIncendie} %","-X %")
-    st.metric("Température",f"{temp} °C", f"{tempDelta} °C")
-    st.metric("Pourcentage d'Humidité",f"{hum} %", f"{humDelta} %")
+    st.session_state["riskNow"] = RiskIncendie
+
+    deltaIncendie = round((st.session_state["riskNow"] - st.session_state["riskLast"]),2)
+
+    st.session_state["riskLast"] = RiskIncendie
+
+    st.metric("Risque d'incendie",f"{RiskIncendie} %",f"{deltaIncendie} %")
+    st.metric("Température moyenne",f"{temp} °C", f"{tempDelta} °C")
+    st.metric("Pourcentage d'humidité moyenne",f"{hum} %", f"{humDelta} %")
 
 with col1:
     createMetric()
