@@ -1,6 +1,4 @@
 import streamlit as st
-import pandas as pd
-
 
 hide_sidebar = """
 <style>
@@ -21,26 +19,17 @@ divColour = """
 <style>
 """
 
-try:
-    with open("users.csv","r") as file:
-        users = pd.read_csv("users.csv")
-except:
-    pass
-
 st.markdown(divColour,unsafe_allow_html=True)
 st.markdown(hide_sidebar, unsafe_allow_html=True,width="content")
 
 st.image("david-logo.png")
 
-st.title("Connexion")
+st.title("Création d'un compte")
 
 contLogin = st.container(border=True,key="container=login")
 
 with contLogin:
-    username = contLogin.text_input("Nom d'utilisateur")
-    passw = contLogin.text_input("Mot de passe")
-    if contLogin.button(label="Connecter"):
-        st.switch_page("01_Home.py")
+    contLogin.text_input("Nom d'utilisateur")
+    contLogin.text_input("Mot de passe")
     if contLogin.button(label="Créer un compte"):
-        st.switch_page("signup.py")
-    
+        st.switch_page("login.py")

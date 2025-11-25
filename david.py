@@ -4,6 +4,7 @@ import time
 
 st.markdown("# :rainbow[WELCOME TO DAVID LAND!!!]")
 
+
 st.image("david-logo.png",caption="DAVID!!!")
 st.image("chien.png",caption="this tha chicago grim reper")
 
