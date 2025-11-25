@@ -5,6 +5,24 @@ import psutil
 
 st.logo("david.png",icon_image="david.png",size="large")
 
+hideLogo = """
+<style>
+[data-testid="stSidebarLogo"]{
+        height: 5rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+[data-testid="stSidebarHeader"]{
+    height: 6.5rem;
+}
+[data-testid="stHeaderLogo"]{
+    height: 5rem;
+    margin-top: 3rem;
+}
+    
+</style>
+"""
+st.markdown(hideLogo,unsafe_allow_html=True)
 
 login = st.Page("login.py")
 signup = st.Page("signup.py")
@@ -21,7 +39,6 @@ pages = [login,
          signup]
 
 # sidebar hiding login page
-st.sidebar.image("david.png",width="stretch")
 st.sidebar.page_link(home,label="Accueil")
 st.sidebar.page_link(measurements,label="Données brutes")
 st.sidebar.page_link(notifications,label="Paramètres")
