@@ -23,7 +23,7 @@ divColour = """
 """
 
 @st.fragment(run_every="10s")
-def yamlWriter(varT,thresholdT,msgT,email,varH,thresholdH,msgH):
+def yamlWriter(varT,thresholdT,msgT,email,varH,thresholdH,msgH,condT,condH):
     options = {
         "tempVar" : varT,
         "humVar" : varH,
@@ -31,6 +31,8 @@ def yamlWriter(varT,thresholdT,msgT,email,varH,thresholdH,msgH):
         "thresholdHum" : thresholdH,
         "msgTemp" : msgT,
         "msgHum" : msgH,
+        "choiceTemp" : condT,
+        "choiceHum" : condH,
         "email" : email,
         "cooldown" : 10
     }
@@ -49,7 +51,9 @@ except:
     varHum="hum1"
     thresholdHum=50
     msgHum=""
-    yamlWriter(varTemp,thresholdTemp,msgTemp,email,varHum,thresholdHum,msgHum)
+    choiceTemp = ">"
+    choiceHum = ">"
+    yamlWriter(varTemp,thresholdTemp,msgTemp,email,varHum,thresholdHum,msgHum,choiceTemp,choiceHum)
     with open("options.yaml","r") as file:
         options = yaml.safe_load(file)
 
@@ -58,6 +62,7 @@ data = pd.read_csv('measurements.csv', parse_dates=['date'])
 indexes = data.columns
 tempIndexes = indexes[21:22].union(indexes[1:3].union(indexes[5:13]))
 humIndexes = indexes[22:23].union(indexes[3:5].union(indexes[14:21]))
+condIndexes = [">","<"]
 
 ### notification settings
 st.markdown(divColour,unsafe_allow_html=True)
@@ -71,7 +76,7 @@ with colT:
     contT = st.container(horizontal="true")
     with contT:
         varTemp = st.selectbox("Choisir un capteur :", tempIndexes,index=tempIndexes.get_loc(options["tempVar"]) , key=1)
-        choiceTemp = st.selectbox("Choisir une condition :",(">", "<", "=") , key=2)
+        choiceTemp = st.selectbox("Choisir une condition :", options=condIndexes, index=condIndexes.index(options["choiceTemp"]), key=2)
     thresholdTemp = st.slider("Température à dépasser :",0,55,options["thresholdTemp"])
     msgTemp = st.text_area(label="Message à envoyer : ", value=options["msgTemp"], key=5)
     
@@ -81,7 +86,7 @@ with colH:
     contH = st.container(horizontal="true")
     with contH:
         varHum = st.selectbox("Choisir un capteur :", humIndexes,index=humIndexes.get_loc(options["humVar"]), key=3)
-        choiceHum = st.selectbox("Choisir une condition :",(">", "<", "=", "=/="),key=4)
+        choiceHum = st.selectbox("Choisir une condition :",options=condIndexes, index=condIndexes.index(options["choiceHum"]),key=4)
     thresholdHum = st.slider("Pourcentage d'humidité à dépasser :",0,100,options["thresholdHum"])
     msgHum = st.text_area("Message à envoyer : ",value=options["msgHum"],key=6)
     
@@ -89,7 +94,8 @@ contEmail = st.container(border=True,key="container-email")
 with contEmail:
     email = st.text_input("Destinataire",placeholder="example@gmail.com",value=options["email"])
 
-yamlWriter(varTemp,thresholdTemp,msgTemp,email,varHum,thresholdHum,msgHum)
+print(choiceHum)
+yamlWriter(varTemp,thresholdTemp,msgTemp,email,varHum,thresholdHum,msgHum,choiceTemp,choiceHum)
 
 st.divider()
 
