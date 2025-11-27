@@ -94,7 +94,6 @@ contEmail = st.container(border=True,key="container-email")
 with contEmail:
     email = st.text_input("Destinataire",placeholder="example@gmail.com",value=options["email"])
 
-print(choiceHum)
 yamlWriter(varTemp,thresholdTemp,msgTemp,email,varHum,thresholdHum,msgHum,choiceTemp,choiceHum)
 
 st.divider()
